@@ -1,5 +1,8 @@
-from django.shortcuts import HttpResponse
+from tasks.models import Task
+from .serializers import TaskSerializer
+from rest_framework import viewsets
 
 # Create your views here.
-def tasksViews(request):
-    return HttpResponse("Hey Api")
+class TasksViewset(viewsets.ModelViewSet):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer

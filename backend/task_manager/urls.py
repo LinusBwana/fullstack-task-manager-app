@@ -6,5 +6,5 @@ urlpatterns = [
     path('tasks/', include('tasks.urls')),
 
     # api
-    path('tasks/api/', include('api.urls')),
+    path('api/tasks/', include('api.urls')),
 ]

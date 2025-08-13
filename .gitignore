@@ -1,5 +1,6 @@
 # Virtual environment
 backend/venv/
+.vscode
 
 # === Python & Django ===
 __pycache__/
