@@ -71,8 +71,20 @@ function TaskList(){
         }
     }
 
-    function handleDelete(){
-        
+    function handleDelete(taskId){
+
+        fetch(`http://127.0.0.1:8000/api/tasks/${taskId}/`, {
+            method: 'DELETE',
+        })
+        .then(response => {
+            if(!response.ok){
+                throw new Error(`Failed to delete task`);
+            }
+            setTasks(tasks => tasks.filter(task => task.id !== taskId));
+        })
+        .catch(error => {
+            console.log('Error deleting task:', error)
+        })            
     }
 
     function handleEdit(){
@@ -95,8 +107,8 @@ function TaskList(){
                     <li key={task.id ?? `temp-${index}`}>
                         {task.task_description} - {task.completed ? "✅ Done" : "❌ Not done"}
                     
-                        <button className="delete-button" onClick={handleDelete}>Delete</button>
-                        <button className="edit-button" onClick={handleEdit}>Edit</button>
+                        <button className="delete-button" onClick={() => handleDelete(task.id)}>Delete</button>
+                        <button className="edit-button" onClick={() => handleEdit(index)}>Edit</button>
                     </li>
                 )}
             </ol>
