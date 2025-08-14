@@ -111,21 +111,23 @@ function TaskList(){
 
     return(
         <div className="task-container">
-            <input type="text" 
-                   placeholder="Enter your task" 
-                   value={newTask} 
-                   onChange={event => setNewTask(event.target.value)}/>
+            <div className="task-container-header">
+                <input type="text" 
+                    placeholder="Enter your task" 
+                    value={newTask} 
+                    onChange={event => setNewTask(event.target.value)}/>
 
-            <select name="task-status" id="task-status" 
-                    value={taskStatus} 
-                    onChange={event => setTaskStatus(event.target.value)}>
-                <option value="">Select an Option</option>
-                <option value="completed">Completed</option>
-                <option value="not-completed">Not Completed</option>
-            </select>
-                
-            <button className="add-button" 
-                    onClick={addtask}>Add task</button>
+                <select className="task-status" 
+                        value={taskStatus} 
+                        onChange={event => setTaskStatus(event.target.value)}>
+                    <option value="">Select an Option</option>
+                    <option value="completed">Completed</option>
+                    <option value="incomplete">Incomplete</option>
+                </select>
+                <button className="add-button" 
+                        onClick={addtask}>Add task</button>
+            </div>
+
             <ol>
                 {tasks.map((task, index) => 
                 <li key={task.id ?? `temp-${index}`}>
@@ -134,29 +136,39 @@ function TaskList(){
                         <input type="text" 
                                value={editedText} 
                                onChange={event => setEditedText(event.target.value)} />
-                        <select value={editedStatus} 
-                                onChange={event => setEditedStatus(event.target.value)}>
-                            <option value="completed">Completed</option>
-                            <option value="not-completed">Not Completed</option>
-                        </select>
-                        <button className="edit-button" 
-                                onClick={() => {handleEdit(task.id, {
-                                task_description: editedText,
-                                completed: editedStatus === 'completed'
-                                });
-                                setEditingTaskId(null);
-                        }}>Save</button>
-                        <button onClick={() => setEditingTaskId(null)}>Cancel</button>
+                        <div className="controls">
+                            <select className="task-status" value={editedStatus} 
+                                    onChange={event => setEditedStatus(event.target.value)}>
+                                <option value="completed">Completed</option>
+                                <option value="incomplete">Incomplete</option>
+                            </select>
+                            <button className="save-button" 
+                                    onClick={() => {handleEdit(task.id, {
+                                    task_description: editedText,
+                                    completed: editedStatus === 'completed'
+                                    });
+                                    setEditingTaskId(null);
+                            }}>Save</button>
+                            <button className="cancel-button" onClick={() => setEditingTaskId(null)}>Cancel</button>
+                        </div>
                         </>
                     ) : (
                         <>
-                        {task.task_description} - {task.completed ? "✅ Done" : "❌ Not done"}
-                        <button onClick={() => {setEditingTaskId(task.id);
-                                                setEditedText(task.task_description);
-                                                setEditedStatus(task.completed ? 'completed' : 'not-completed');}
-                                        }>Edit</button>
+                        <div className="task-description">
+                            {task.task_description}
+                        </div>   
+                        <div className="controls">
+                            {task.completed ? "Completed✅" : "Incomplete❌"}
+                            <button className="edit-button"
+                                onClick={() => {setEditingTaskId(task.id);
+                                setEditedText(task.task_description);
+                                setEditedStatus(task.completed ? 'completed' : 'incomplete');}}
+                                title="Edit Task">✏️</button>
                     
-                        <button className="delete-button" onClick={() => handleDelete(task.id)}>Delete</button>
+                            <button className="delete-button" 
+                                    onClick={() => handleDelete(task.id)}
+                                    title="Delete Task" >🗑️</button>
+                        </div>
                         </>
                         )}   
                     </li>
