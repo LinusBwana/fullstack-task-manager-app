@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import API_URL from './config';
 
 function TaskList() {
   const [tasks, setTasks] = useState([]);
@@ -10,7 +11,8 @@ function TaskList() {
   const [editedStatus, setEditedStatus] = useState('');
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/tasks/')
+    // fetch(`http://127.0.0.1:8000/api/tasks/`)
+    fetch(`${API_URL}/api/tasks/`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch tasks');
@@ -37,7 +39,8 @@ function TaskList() {
         user: 1,
       };
 
-      fetch('http://127.0.0.1:8000/api/tasks/', {
+      fetch(`${API_URL}/api/tasks/`, {
+      // fetch(`http://127.0.0.1:8000/api/tasks/`, {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
@@ -63,7 +66,8 @@ function TaskList() {
   }
 
   function handleDelete(taskId) {
-    fetch(`http://127.0.0.1:8000/api/tasks/${taskId}/`, {
+    fetch(`${API_URL}/api/tasks/${taskId}/`, {
+    // fetch(`http://127.0.0.1:8000/api/tasks/${taskId}/`, {
       method: 'DELETE',
     })
       .then(response => {
@@ -83,7 +87,8 @@ function TaskList() {
       return;
     }
 
-    fetch(`http://127.0.0.1:8000/api/tasks/${taskId}/`, {
+    fetch(`${API_URL}api/tasks/${taskId}/`, {
+    // fetch(`http://127.0.0.1:8000/api/tasks/${taskId}/`, {
       method: 'PATCH',
       headers: {
         'Content-type': 'application/json'
