@@ -29,7 +29,14 @@ function TaskList() {
       });
   }, []);
 
-  if (loading) return <div className="text-center mt-5"><p>Loading tasks...</p></div>;
+  if (loading) 
+    return (
+    <div className="text-center mt-5">
+      <div className="spinner-border text-primary" role="status"></div>
+      <span className="visually-hidden">Loading...</span>
+      <p className="text-light">Loading tasks...</p>
+    </div>
+  );
 
   function addtask() {
     if (newTask.trim() !== "") {
