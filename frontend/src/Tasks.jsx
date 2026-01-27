@@ -94,7 +94,7 @@ function TaskList() {
       return;
     }
 
-    fetch(`${API_URL}api/tasks/${taskId}/`, {
+    fetch(`${API_URL}/api/tasks/${taskId}/`, {
     // fetch(`http://127.0.0.1:8000/api/tasks/${taskId}/`, {
       method: 'PATCH',
       headers: {
